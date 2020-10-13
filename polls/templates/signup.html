@@ -7,34 +7,44 @@
 <div class="container">
     <div class="p-4 m-4">
         <div class="col-lg-5 mx-auto">
-            <form action="">
+          <h3 class="alert alert-info border rounded">SignUp Account</h3>
+          {% if error %}
+          <div class="alert alert-danger" role="alert">
+            {{error}}
+          </div>
+          {% endif %}
+
+
+            <form action="{% url 'signup' %}" method="POST">
+              {% csrf_token %}
                 <div class="form-group">
                     <label for="">Name</label>
-                    <input type="text" name="name" id="" class="form-control" placeholder="">
+                    <input type="text" value="{{values.fname}}" name="fname" id="" class="form-control" placeholder="">
                     
                   </div>
 
                   <div class="form-group">
                     <label for="">Phone</label>
-                    <input type="text" name="phone" id="" class="form-control" placeholder="">
+                    <input type="text" value="{{values.phone}}" name="phone" id="" class="form-control" placeholder="">
                     
                   </div>
 
                 <div class="form-group">
                   <label for="">Email</label>
-                  <input type="email" name="email" id="" class="form-control" placeholder="example@email.com">
+                  <input type="email" value="{{values.email}}" name="email" id="" class="form-control" placeholder="example@email.com">
                   
                 </div>
 
                 <div class="form-group">
                     <label for="">Password</label>
-                    <input type="password" name="password" id="" class="form-control" placeholder="*****">
+                    <input type="password" value="{{values.password}}" name="password" id="" class="form-control" placeholder="*****">
                     
                   </div>
                 
                 <div class="form-group">
                     <input class="btn btn-info" type="submit" value="Register">
                 </div>
+                
 
                   
             </form>

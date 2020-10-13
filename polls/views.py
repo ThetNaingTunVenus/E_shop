@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from.models.product import Product
 from.models.category import Category
+from.models.customer import Customer
 
 # Create your views here.
 def index(request):
@@ -19,4 +20,28 @@ def index(request):
 
 
 def signup(request):
-    return render(request, 'signup.html')
+    if request.method == 'GET':
+        return render(request, 'signup.html')
+    
+    else:
+        postData = request.POST
+        fname = postData.get('fname')
+        phone = postData.get('phone')
+        email = postData.get('email')
+        password = postData.get('password')
+        #validating
+        error_message = None
+        if(not fname):
+            error_message = "Name Required !!!"
+        elif len(fname)<4:
+            error_message = "Must be 4 Characters and more !!!"
+            
+        #saving
+        if not error_message:
+            customer = Customer(fname=fname, phone=phone, email=email, password=password)
+            customer.register()
+            return redirect('index')
+        else:
+            return render(request, 'signup.html', {'error':error_message})
+        
+    
